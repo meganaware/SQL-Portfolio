@@ -1,0 +1,52 @@
+--Create a running shoe store database.
+
+CREATE TABLE shoes (id INTEGER PRIMARY KEY, style TEXT, brand TEXT, price INTEGER, type TEXT);
+
+INSERT INTO shoes VALUES (1, "ghost", "brooks", 140, "neutral");
+INSERT INTO shoes VALUES (2, "wave rider", "mizuno", 140, "neutral");
+INSERT INTO shoes VALUES (3, "cloudgo", "on", 150, "neutral");
+INSERT INTO shoes VALUES (4, "fresh foam 880", "new balance", 135, "neutral");
+INSERT INTO shoes VALUES (5, "gel-nimbus", "asics", 160, "neutral");
+INSERT INTO shoes VALUES (6, "ride", "saucony", 140, "neutral");
+INSERT INTO shoes VALUES (7, "torin", "altra", 150, "neutral");
+INSERT INTO shoes VALUES (8, "ikoni", "karhu", 140, "neutral");
+INSERT INTO shoes VALUES (9, "clifton", "hoka", 145, "neutral");
+INSERT INTO shoes VALUES (10, "glycerin", "brooks", 160, "cushioned");
+INSERT INTO shoes VALUES (11, "gel-nimbus", "asics", 160, "cushioned");
+INSERT INTO shoes VALUES (12, "synchron", "karhu", 160, "cushioned");
+INSERT INTO shoes VALUES (13, "triumph", "saucony", 160, "cushioned");
+INSERT INTO shoes VALUES (14, "cloudstratus", "on", 170, "cushioned");
+INSERT INTO shoes VALUES (15, "wave sky", "mizuno", 170, "cushioned");
+INSERT INTO shoes VALUES (16, "fresh foam more", "new balance", 165, "cushioned");
+INSERT INTO shoes VALUES (17, "via olympus", "altra", 170, "cushioned");
+INSERT INTO shoes VALUES (18, "bondi", "hoka", 165, "cushioned");
+INSERT INTO shoes VALUES (19, "fresh foam 860", "new balance", 135, "stability");
+INSERT INTO shoes VALUES (20, "adrenaline", "brooks", 140, "stability");
+INSERT INTO shoes VALUES (21, "arahi", "hoka", 140, "stability");
+INSERT INTO shoes VALUES (22, "gel-kayano", "asics", 160, "stability");
+INSERT INTO shoes VALUES (23, "guide", "saucony", 140, "stability");
+INSERT INTO shoes VALUES (24, "wave horizon", "mizuno", 170, "stability");
+INSERT INTO shoes VALUES (25, "cloudstratus", "on", 170, "stability");
+INSERT INTO shoes VALUES (26, "cloudrunner", "on", 150, "stability");
+INSERT INTO shoes VALUES (27, "gaviota", "hoka", 170, "stability");
+INSERT INTO shoes VALUES (28, "wave inspire", "mizuno", 140, "stability");
+INSERT INTO shoes VALUES (29, "paradigm", "altra", 170, "stability");
+INSERT INTO shoes VALUES (30, "cloudflyer", "on", 170, "stability");
+INSERT INTO shoes VALUES (31, "gt-2000", "asics", 130, "stability");
+
+--Display the database ordered by price.
+SELECT * FROM shoes
+ORDER BY price desc;
+
+--What is the average price of hoka brand shoes?
+SELECT AVG(price) "avg hoka price"
+FROM shoes
+where brand="hoka";
+
+--Choose fit of running shoe based on wear pattern.
+CREATE TABLE fit (shoe_type TEXT primary key, wear_pattern TEXT);
+INSERT INTO fit VALUES ("stability", "overpronation");
+INSERT INTO fit VALUES ("neutral", "basic pronation");
+INSERT INTO fit VALUES ("cushioned", "supination");
+
+SELECT * FROM fit;
