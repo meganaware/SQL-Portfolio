@@ -1,0 +1,67 @@
+/**In this project, you’re going to make your own table with some small 
+set of “famous people”, then make more tables about things they do and join 
+those to create nice human readable lists. Contains at least two tables with at 
+least 15 rows total. One of the tables contains a column that relates to the primary key of another table.
+Has at least one query that does a JOIN.*/
+
+CREATE TABLE celebrities (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    born INTEGER,
+    nationality TEXT, 
+    industry TEXT);
+    
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Shakira", 1977, "Colombian", "Music");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Tom Cruise", 1962, "American", "Film");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Gisele Bündchen", 1980, "Brazilian", "Fashion");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Ellen Degeneres", 1958, "American", "Television");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Lebron James", 1984, "American", "Sports");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Donald Trump", 1946, "American", "Business");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Elon Musk", 1971, "American/South American", "Business");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Tom Brady", 1977, "American", "Sports");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Taylor Swift", 1989, "American", "Music");
+INSERT INTO celebrities (name, born, nationality, industry) VALUES ("Jennifer Aniston", 1969, "American", "Film");
+
+CREATE table wealth (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    celebrities_id INTEGER,
+    net_worth TEXT,
+    source_wealth TEXT);
+    
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (1, "300 million", "Singer-Songwriter");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (2, "600 million", "Film Actor/Producer");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (3, "400 million", "Fashion Supermodel");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (4, "380 million", "TV Personality/Comedian");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (5, "1 billion", "Basketball Player in the NBA");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (6, "3.2 billion", "Politician/Businessman");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (7, "190.8 billion", "Entrepreneur/Investor/Engineer");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (8, "512 million", "Former Football Quarterback in the NFL");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (9, "450 million", "Singer-Songwriter");
+INSERT INTO wealth (celebrities_id, net_worth, source_wealth) VALUES (10, "300 million", "Film Actress");
+
+SELECT * FROM celebrities;
+SELECT * FROM wealth;
+
+/*Return total net worth for each billionare*/
+SELECT celebrities.name, wealth.net_worth
+FROM celebrities
+JOIN wealth
+ON celebrities.id = wealth.celebrities_id;
+
+SELECT c.name AS "Celebrity Name", c.born AS "Birth Year", c.nationality AS "Nationality", w.net_worth AS "Net Worth"
+FROM celebrities c JOIN wealth w ON c.id = w.celebrities_id;
+
+SELECT c.name AS "Celebrity Name", c.industry AS "Industry", w.source_wealth AS "Career"
+FROM celebrities c JOIN wealth w ON c.id = w.celebrities_id
+ORDER BY c.industry;
+
+--View net worth of celebrities younger than 50.
+SELECT c.name, c.born, w.net_worth 
+FROM celebrities c JOIN wealth w ON c.id = w.celebrities_id
+WHERE c.born >= 1973
+ORDER BY c.born ASC;
+
+
+
+
+
