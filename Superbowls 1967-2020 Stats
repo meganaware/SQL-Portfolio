@@ -1,5 +1,5 @@
-/* Superbowls 1967-2020 (Winners and losers of all Superbowl finals) 
-Source: https://gist.github.com/pamelafox/3d8ab901def3577a8bfc881f6255d3f6#file-superbowls-sql */
+/*Superbowls 1967-2020 (Winners and losers of all Superbowl finals) 
+Source: https://gist.github.com/pamelafox/3d8ab901def3577a8bfc881f6255d3f6#file-superbowls-sql*/
 
 CREATE TABLE superbowls(
   Date      TEXT PRIMARY KEY,
@@ -12,7 +12,8 @@ CREATE TABLE superbowls(
   Stadium    TEXT,
   City       TEXT,
   State      TEXT
-);
+  );
+
 INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES ('Feb 2 2020','LIV (54)','Kansas City Chiefs',31,'San Francisco 49ers',20,'Patrick Mahomes','Hard Rock Stadium','Miami Gardens','Florida');
 INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES ('Feb 3 2019','LIII (53)','New England Patriots',13,'Los Angeles Rams',3,'Julian Edelman','Mercedes-Benz Stadium','Atlanta','Georgia');
 INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES ('Feb 4 2018','LII (52)','Philadelphia Eagles',41,'New England Patriots',33,'Nick Foles','U.S. Bank Stadium','Minneapolis','Minnesota');
@@ -68,46 +69,46 @@ INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,Cit
 INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES ('Jan 14 1968','II (2)','Green Bay Packers',33,'Oakland Raiders',14,'Bart Starr+','Orange Bowl','Miami','Florida');
 INSERT INTO superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES ('Jan 15 1967','I (1)','Green Bay Packers',35,'Kansas City Chiefs',10,'Bart Starr+','Memorial Coliseum','Los Angeles','California');
 
---View database.
+/*View database.*/
 SELECT * 
 FROM superbowls;
 
---Average of points scored by winning team.
+/*Average of points scored by winning team.*/
 SELECT AVG(winner_pts) AS Winner_Points_Avg FROM superbowls;
 
---Number of superbowl wins by each team.
+/*Number of superbowl wins by each team.*/
 SELECT winner AS Team, COUNT(*) AS Superbowl_Champs 
 FROM superbowls 
 GROUP BY winner
 ORDER BY COUNT(*) DESC;
 
---Cities used to host superbowl.
+/*Cities used to host superbowl.*/
 SELECT City, State, COUNT(*) AS Host_Site 
 FROM superbowls
 GROUP BY City
 ORDER BY COUNT(*) DESC;
 
---Players who have won superbowl MVP more than once.
+/*Players who have won superbowl MVP more than once.*/
 SELECT MVP, COUNT(*) AS Total_Won 
 FROM superbowls 
 GROUP BY MVP 
 HAVING COUNT(*)>1 
 ORDER BY COUNT(*) DESC;
 
---Superbowl winners who scored more than 30 points.
+/*Superbowl winners who scored more than 30 points.*/
 SELECT date, SB AS Superbowl, winner, winner_pts 
 FROM superbowls
 GROUP BY date
 HAVING winner_pts > 30
 ORDER BY winner_pts ASC;
 
---Final score deficit greater than 20 points.
+/*Final score deficit greater than 20 points.*/
 SELECT date, SB AS Superbowl, winner_pts - loser_pts AS Score_Deficit
 FROM superbowls
 WHERE Score_Deficit>20
 ORDER BY Score_Deficit ASC;
 
---Classification of teams into tiers based on total number of superbowl wins.
+/*Classification of teams into tiers based on total number of superbowl wins.*/
 SELECT winner AS Team, COUNT(*) AS Superbowl_Wins,
 CASE
 WHEN COUNT(*)<=1 THEN "Average"
@@ -118,5 +119,5 @@ FROM superbowls
 GROUP BY Team
 ORDER BY Superbowl_Wins ASC;
 
---Superbowls won by the San Francisco 49ers where Joe Montana won MVP.
+/*Superbowls won by the San Francisco 49ers where Joe Montana won MVP.*/
 SELECT winner, MVP FROM superbowls WHERE MVP = "Joe Montana+" AND winner = "San Francisco 49ers";
